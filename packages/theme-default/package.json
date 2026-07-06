@@ -1,0 +1,23 @@
+{
+  "name": "@glypher/theme-default",
+  "version": "0.0.1",
+  "description": "Default CSS theme for Glypher editor and toolbar.",
+  "license": "MIT",
+  "main": "./src/index.css",
+  "exports": {
+    ".": "./src/index.css",
+    "./style.css": "./src/index.css",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "echo 'theme-default is css-only, nothing to build'",
+    "clean": "echo 'nothing to clean'",
+    "typecheck": "echo 'no typescript here'"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

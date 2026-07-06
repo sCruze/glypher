@@ -1,0 +1,54 @@
+{
+  "name": "@glypher/full-kit",
+  "version": "0.0.8",
+  "description": "FullKit bundle \u2014 StarterKit plus MVP-safe rich formatting, typography, colors, indent and word count.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@glypher/core": "^0.0.1"
+  },
+  "dependencies": {
+    "@glypher/extension-background-color": "workspace:*",
+    "@glypher/extension-font-family": "workspace:*",
+    "@glypher/extension-font-size": "workspace:*",
+    "@glypher/extension-highlight": "workspace:*",
+    "@glypher/extension-indent": "workspace:*",
+    "@glypher/extension-inline-code": "workspace:*",
+    "@glypher/extension-line-height": "workspace:*",
+    "@glypher/extension-subscript": "workspace:*",
+    "@glypher/extension-superscript": "workspace:*",
+    "@glypher/extension-table": "workspace:*",
+    "@glypher/extension-text-color": "workspace:*",
+    "@glypher/extension-text-stroke": "workspace:*",
+    "@glypher/extension-word-count": "workspace:*",
+    "@glypher/starter-kit": "workspace:*"
+  },
+  "devDependencies": {
+    "@glypher/core": "workspace:*",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

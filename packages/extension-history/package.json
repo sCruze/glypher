@@ -1,0 +1,32 @@
+{
+  "name": "@glypher/extension-history",
+  "version": "0.0.1",
+  "description": "Undo/redo extension for Glypher (the underlying history stack lives in core; this package is the conventional opt-in).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "src", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@glypher/core": "^0.0.1"
+  },
+  "devDependencies": {
+    "@glypher/core": "workspace:*",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/home/sergey99/all_projects/libraries/text-editor/glypher/node_modules/.bin/vitest run *)",
+      "Bash(grep -nE \"^[A-Z]+$|^PATH|^CHECKSUMS|^GEM|^PLATFORMS|^DEPENDENCIES\" /home/sergey99/all_projects/libraries/text-editor/glypher/gems/glypher_rails/Gemfile.lock)"
+    ]
+  }
+}

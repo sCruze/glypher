@@ -1,0 +1,1085 @@
+/* Glypher default theme.
+ *
+ * Imports tokens, then styles the structural classes set by core
+ * (`.glypher-editor`, `.glypher-content`) and the React toolbar
+ * primitives (`.glypher-toolbar`, `.glypher-button`, `.glypher-dropdown`).
+ */
+
+@import "./tokens.css";
+
+.glypher {
+  font-family: var(--gv-font-sans);
+  color: var(--gv-color-text);
+  background: var(--gv-color-surface);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  overflow: visible; /* allow dropdown popovers to escape */
+}
+
+/* ===========================================================================
+ * Toolbar
+ * ======================================================================== */
+
+.glypher-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: var(--gv-space-2);
+  background: var(--gv-color-surface-muted);
+  border-bottom: 1px solid var(--gv-color-border);
+}
+
+.glypher-toolbar__divider {
+  display: inline-block;
+  width: 1px;
+  height: 22px;
+  background: var(--gv-color-border);
+  margin: 0 var(--gv-space-1);
+}
+
+.glypher-button {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--gv-color-text);
+  padding: 6px 8px;
+  border-radius: var(--gv-radius-sm);
+  font: inherit;
+  font-size: var(--gv-text-sm);
+  line-height: 1;
+  cursor: pointer;
+  min-width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background-color 80ms ease, color 80ms ease;
+}
+
+.glypher-button:hover {
+  background: var(--gv-color-border);
+}
+
+.glypher-button:focus-visible {
+  outline: 2px solid var(--gv-color-accent);
+  outline-offset: 1px;
+}
+
+.glypher-button.is-active,
+.glypher-button[data-active="true"] {
+  background: var(--gv-color-accent-soft);
+  color: var(--gv-color-accent);
+  border-color: transparent;
+}
+
+.glypher-button:disabled,
+.glypher-button[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===========================================================================
+ * Dropdown
+ * ======================================================================== */
+
+.glypher-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.glypher-dropdown__trigger {
+  padding-right: 6px;
+}
+
+.glypher-dropdown__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.glypher-dropdown__summary {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  margin-left: 2px;
+  color: inherit;
+}
+
+.glypher-dropdown__chevron {
+  font-size: 9px;
+  line-height: 1;
+  margin-left: 1px;
+  opacity: 0.7;
+}
+
+.glypher-dropdown.is-open .glypher-dropdown__chevron {
+  transform: rotate(180deg);
+}
+
+.glypher-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 200px;
+  z-index: 50;
+  background: var(--gv-color-surface);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  box-shadow:
+    0 10px 38px -10px rgba(22, 23, 24, 0.15),
+    0 10px 20px -15px rgba(22, 23, 24, 0.1);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  animation: glypher-dropdown-in 100ms ease-out;
+}
+
+.glypher-dropdown__menu.is-right {
+  left: auto;
+  right: 0;
+}
+
+@keyframes glypher-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glypher-dropdown__item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--gv-color-text);
+  font: inherit;
+  font-size: var(--gv-text-sm);
+  padding: 7px 8px;
+  border-radius: var(--gv-radius-sm);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+
+.glypher-dropdown__item:hover {
+  background: var(--gv-color-surface-muted);
+}
+
+.glypher-dropdown__item.is-active {
+  color: var(--gv-color-accent);
+  background: var(--gv-color-accent-soft);
+}
+
+.glypher-dropdown__item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gv-color-text-muted);
+}
+
+.glypher-dropdown__item.is-active .glypher-dropdown__item-icon {
+  color: var(--gv-color-accent);
+}
+
+.glypher-dropdown__item-shortcut {
+  color: var(--gv-color-text-muted);
+  font-size: 11px;
+  font-family: var(--gv-font-mono);
+}
+
+.glypher-dropdown__separator {
+  height: 1px;
+  background: var(--gv-color-border);
+  margin: 4px 0;
+}
+
+/* Color swatch grid inside the color-picker dropdowns */
+.glypher-color-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  padding: 6px;
+}
+.glypher-color-grid__swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--gv-color-border);
+  cursor: pointer;
+  appearance: none;
+  padding: 0;
+  transition: transform 80ms ease;
+}
+.glypher-color-grid__swatch:hover {
+  transform: scale(1.1);
+}
+.glypher-color-grid__swatch--clear {
+  background:
+    linear-gradient(45deg, transparent 46%, #d23 46% 54%, transparent 54%),
+    var(--gv-color-surface);
+}
+
+/* ===========================================================================
+ * Editor surface
+ * ======================================================================== */
+
+.glypher-content,
+.glypher-editor {
+  padding: var(--gv-space-4);
+  font-size: var(--gv-text-base);
+  line-height: var(--gv-leading);
+  min-height: 8em;
+  outline: none;
+}
+
+.glypher-editor[contenteditable="false"] {
+  background: var(--gv-color-surface-muted);
+  cursor: default;
+}
+
+.glypher-editor :where(p) {
+  margin: 0 0 var(--gv-space-3) 0;
+}
+.glypher-editor :where(p:last-child) {
+  margin-bottom: 0;
+}
+
+.glypher-editor :where(h1, h2, h3, h4, h5, h6) {
+  margin: var(--gv-space-4) 0 var(--gv-space-2);
+  line-height: 1.25;
+  font-weight: 600;
+}
+.glypher-editor :where(h1) { font-size: 1.875rem; }
+.glypher-editor :where(h2) { font-size: 1.5rem; }
+.glypher-editor :where(h3) { font-size: 1.25rem; }
+.glypher-editor :where(h4) { font-size: 1.125rem; }
+.glypher-editor :where(h5, h6) { font-size: 1rem; }
+
+/* Marks */
+.glypher-editor :where(strong) { font-weight: 700; }
+.glypher-editor :where(em) { font-style: italic; }
+.glypher-editor :where(u) { text-decoration: underline; text-underline-offset: 2px; }
+.glypher-editor :where(s, del) { text-decoration: line-through; }
+.glypher-editor :where(sub) { font-size: 0.75em; vertical-align: sub; }
+.glypher-editor :where(sup) { font-size: 0.75em; vertical-align: super; }
+.glypher-editor :where(code) {
+  font-family: var(--gv-font-mono);
+  font-size: 0.875em;
+  background: var(--gv-color-surface-muted);
+  border: 1px solid var(--gv-color-border);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+}
+.glypher-editor :where(mark) {
+  background: #fff59d;
+  color: inherit;
+  padding: 0 0.05em;
+  border-radius: 2px;
+}
+[data-theme="dark"] .glypher-editor :where(mark) {
+  background: #5d4a00;
+  color: #ffeb95;
+}
+
+.glypher-editor :where(a) {
+  color: var(--gv-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Horizontal rule ------------------------------------------------------- */
+.glypher-editor :where(hr) {
+  border: 0;
+  height: 1px;
+  background: var(--gv-color-border-strong);
+  margin: var(--gv-space-4) 0;
+}
+
+/* Image ----------------------------------------------------------------- */
+.glypher-editor :where(img.glypher-image) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: var(--gv-space-3) 0;
+  border-radius: var(--gv-radius-sm);
+}
+.glypher-editor :where(img.glypher-image[data-align="left"]) {
+  margin-right: auto;
+}
+.glypher-editor :where(img.glypher-image[data-align="center"]) {
+  margin-left: auto;
+  margin-right: auto;
+}
+.glypher-editor :where(img.glypher-image[data-align="right"]) {
+  margin-left: auto;
+}
+/* Selected/focused image gets a subtle ring so the context toolbar
+ * has a clear referent. The editor sets no class here yet — this
+ * styles the browser's native :focus where possible. */
+.glypher-editor :where(img.glypher-image):hover {
+  outline: 2px solid var(--gv-color-accent-soft);
+  outline-offset: 2px;
+}
+
+/* Captioned image — <figure> + <figcaption> */
+.glypher-editor :where(figure.glypher-figure) {
+  margin: var(--gv-space-3) 0;
+}
+.glypher-editor :where(figure.glypher-figure img.glypher-image) {
+  margin: 0;
+}
+.glypher-editor :where(figure.glypher-figure[data-align="center"]) {
+  text-align: center;
+}
+.glypher-editor :where(figure.glypher-figure[data-align="right"]) {
+  text-align: right;
+}
+.glypher-editor
+  :where(
+    figure.glypher-figure[data-align="center"] img.glypher-image
+  ) {
+  margin-left: auto;
+  margin-right: auto;
+}
+.glypher-editor
+  :where(figure.glypher-figure[data-align="right"] img.glypher-image) {
+  margin-left: auto;
+}
+.glypher-editor :where(figcaption.glypher-figcaption) {
+  margin-top: var(--gv-space-2);
+  font-size: var(--gv-text-sm);
+  color: var(--gv-color-text-muted);
+  text-align: center;
+}
+
+/* Context toolbar (image, future: table) — a compact floating bar */
+.glypher-toolbar--context {
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  box-shadow: 0 4px 16px -6px rgba(22, 23, 24, 0.2);
+  display: inline-flex;
+  margin-top: var(--gv-space-2);
+}
+
+/* ===========================================================================
+ * Floating menus — bubble (over selection) and slash (block insert)
+ * ======================================================================== */
+
+.glypher-floating {
+  /* position/top/left/opacity are set inline by the Floating component */
+  animation: glypher-floating-in 90ms ease-out;
+}
+
+@keyframes glypher-floating-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bubble menu — a horizontal row of inline-format buttons */
+.glypher-bubble-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--gv-color-surface);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  box-shadow:
+    0 8px 28px -8px rgba(22, 23, 24, 0.28),
+    0 2px 8px -4px rgba(22, 23, 24, 0.16);
+}
+
+/* Slash menu — a vertical list of block-insert commands */
+.glypher-slash-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 220px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--gv-color-surface);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  box-shadow:
+    0 10px 38px -10px rgba(22, 23, 24, 0.22),
+    0 10px 20px -15px rgba(22, 23, 24, 0.12);
+}
+
+.glypher-slash-item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--gv-color-text);
+  font: inherit;
+  font-size: var(--gv-text-sm);
+  padding: 7px 8px;
+  border-radius: var(--gv-radius-sm);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+
+.glypher-slash-item.is-active {
+  background: var(--gv-color-accent-soft);
+  color: var(--gv-color-accent);
+}
+
+.glypher-slash-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gv-color-text-muted);
+}
+.glypher-slash-item.is-active .glypher-slash-item__icon {
+  color: var(--gv-color-accent);
+}
+
+.glypher-slash-item__hint {
+  color: var(--gv-color-text-muted);
+  font-size: 11px;
+  font-family: var(--gv-font-mono);
+}
+
+/* Table ----------------------------------------------------------------- */
+.glypher-editor :where(table.glypher-table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--gv-space-3) 0;
+  font-size: var(--gv-text-sm);
+  table-layout: fixed;
+}
+.glypher-editor :where(table.glypher-table td),
+.glypher-editor :where(table.glypher-table th) {
+  border: 1px solid var(--gv-color-border-strong);
+  padding: 6px 10px;
+  vertical-align: top;
+  min-width: 3em;
+}
+.glypher-editor :where(table.glypher-table th) {
+  background: var(--gv-color-surface-muted);
+  font-weight: 600;
+  text-align: left;
+}
+.glypher-editor :where(table.glypher-table td > p:last-child),
+.glypher-editor :where(table.glypher-table th > p:last-child) {
+  margin-bottom: 0;
+}
+/* First child hugs the cell's top padding edge, so cell text starts
+ * where the user expects rather than a heading-margin below it. */
+.glypher-editor :where(table.glypher-table td > :first-child),
+.glypher-editor :where(table.glypher-table th > :first-child) {
+  margin-top: 0;
+}
+/* An empty cell / paragraph still carries a filler <br>; give leaf
+ * blocks a minimum height so the caret has somewhere to land. */
+.glypher-editor :where(p, h1, h2, h3, h4, h5, h6) {
+  min-height: 1em;
+}
+
+/* Cell-range selection — cells picked by drag / shift-click */
+.glypher-editor
+  :where(
+    table.glypher-table td.glypher-cell--selected,
+    table.glypher-table th.glypher-cell--selected
+  ) {
+  background: var(--gv-color-accent-soft);
+  box-shadow: inset 0 0 0 1px var(--gv-color-accent);
+}
+
+/* Comment mark — commented text (§14) */
+.glypher-editor :where(.glypher-comment) {
+  background: color-mix(in srgb, #fbbf24 28%, transparent);
+  border-bottom: 2px solid #f59e0b;
+  cursor: pointer;
+}
+.glypher-editor :where(.glypher-comment--resolved) {
+  background: transparent;
+  border-bottom: 2px solid var(--gv-color-border-strong);
+}
+
+/* Mention pill (§14) */
+.glypher-editor :where(.glypher-mention) {
+  display: inline;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--gv-color-accent-soft);
+  color: var(--gv-color-accent);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+}
+
+/* Mention menu — @-triggered candidate picker */
+.glypher-mention-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 200px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--gv-color-surface);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  box-shadow:
+    0 10px 38px -10px rgba(22, 23, 24, 0.22),
+    0 10px 20px -15px rgba(22, 23, 24, 0.12);
+}
+.glypher-mention-item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--gv-color-text);
+  font: inherit;
+  font-size: var(--gv-text-sm);
+  padding: 6px 8px;
+  border-radius: var(--gv-radius-sm);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+}
+.glypher-mention-item.is-active {
+  background: var(--gv-color-accent-soft);
+  color: var(--gv-color-accent);
+}
+.glypher-mention-item__hint {
+  font-size: 11px;
+  color: var(--gv-color-text-muted);
+}
+.glypher-mention-item.is-active .glypher-mention-item__hint {
+  color: var(--gv-color-accent);
+}
+
+/* Table size picker (inside the TableButton dropdown) */
+.glypher-table-picker {
+  display: grid;
+  grid-template-columns: repeat(6, 18px);
+  grid-auto-rows: 18px;
+  gap: 3px;
+  padding: 8px;
+}
+.glypher-table-picker__cell {
+  appearance: none;
+  border: 1px solid var(--gv-color-border-strong);
+  background: var(--gv-color-surface);
+  border-radius: 2px;
+  padding: 0;
+  cursor: pointer;
+}
+.glypher-table-picker__cell.is-on {
+  background: var(--gv-color-accent-soft);
+  border-color: var(--gv-color-accent);
+}
+.glypher-table-picker__label {
+  text-align: center;
+  font-size: var(--gv-text-sm);
+  color: var(--gv-color-text-muted);
+  padding: 0 8px 8px;
+}
+
+/* Image resizer — drag-handle overlay */
+.glypher-image-resizer {
+  /* box outline so the user sees what's being resized */
+  outline: 1.5px solid var(--gv-color-accent);
+  outline-offset: 0;
+}
+.glypher-image-resizer__handle {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  background: var(--gv-color-surface);
+  border: 1.5px solid var(--gv-color-accent);
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+.glypher-image-resizer__handle.is-nw {
+  top: -6px;
+  left: -6px;
+  cursor: nwse-resize;
+}
+.glypher-image-resizer__handle.is-ne {
+  top: -6px;
+  right: -6px;
+  cursor: nesw-resize;
+}
+.glypher-image-resizer__handle.is-sw {
+  bottom: -6px;
+  left: -6px;
+  cursor: nesw-resize;
+}
+.glypher-image-resizer__handle.is-se {
+  bottom: -6px;
+  right: -6px;
+  cursor: nwse-resize;
+}
+
+/* Table column resizer — thin vertical handles on column borders */
+.glypher-col-resizer {
+  cursor: col-resize;
+  background: transparent;
+  transition: background-color 80ms ease;
+}
+.glypher-col-resizer:hover {
+  background: color-mix(in srgb, var(--gv-color-accent) 35%, transparent);
+}
+
+/* Source view — raw-HTML editing pane (§11) */
+.glypher-source-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gv-space-2);
+}
+.glypher-source-view__area {
+  width: 100%;
+  min-height: 320px;
+  resize: vertical;
+  box-sizing: border-box;
+  padding: var(--gv-space-3);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-md);
+  background: var(--gv-color-surface-muted);
+  color: var(--gv-color-text);
+  font-family: var(--gv-font-mono);
+  font-size: var(--gv-text-sm);
+  line-height: 1.6;
+  tab-size: 2;
+}
+.glypher-source-view__area:focus {
+  outline: 2px solid var(--gv-color-accent);
+  outline-offset: -1px;
+}
+.glypher-source-view__actions {
+  display: flex;
+  gap: var(--gv-space-2);
+  justify-content: flex-end;
+}
+
+/* Plain text label inside a dropdown trigger (font / size pickers) */
+.glypher-dropdown__text {
+  font-size: var(--gv-text-sm);
+  padding: 0 2px;
+}
+
+/* Indent ---------------------------------------------------------------- */
+.glypher-editor [data-indent="1"] { padding-left: calc(var(--gv-indent-step) * 1); }
+.glypher-editor [data-indent="2"] { padding-left: calc(var(--gv-indent-step) * 2); }
+.glypher-editor [data-indent="3"] { padding-left: calc(var(--gv-indent-step) * 3); }
+.glypher-editor [data-indent="4"] { padding-left: calc(var(--gv-indent-step) * 4); }
+.glypher-editor [data-indent="5"] { padding-left: calc(var(--gv-indent-step) * 5); }
+.glypher-editor [data-indent="6"] { padding-left: calc(var(--gv-indent-step) * 6); }
+.glypher-editor [data-indent="7"] { padding-left: calc(var(--gv-indent-step) * 7); }
+.glypher-editor [data-indent="8"] { padding-left: calc(var(--gv-indent-step) * 8); }
+
+/* Lists ---------------------------------------------------------------- */
+.glypher-editor :where(ul, ol) {
+  margin: 0 0 var(--gv-space-3) 0;
+  padding-left: 1.5rem;
+}
+.glypher-editor :where(ul) { list-style: disc; }
+.glypher-editor :where(ol) { list-style: decimal; }
+.glypher-editor :where(li) > p {
+  margin: 0 0 var(--gv-space-1) 0;
+}
+
+/* Task list ------------------------------------------------------------- */
+.glypher-editor :where(ul.glypher-task-list) {
+  list-style: none;
+  padding-left: 0;
+}
+.glypher-editor :where(li.glypher-task-item) {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 6px;
+  align-items: start;
+  padding: 2px 0;
+}
+.glypher-editor :where(li.glypher-task-item)::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  border: 1.5px solid var(--gv-color-border-strong);
+  border-radius: 3px;
+  background: var(--gv-color-surface);
+  cursor: pointer;
+}
+.glypher-editor :where(li.glypher-task-item.is-checked)::before {
+  background: var(--gv-color-accent);
+  border-color: var(--gv-color-accent);
+  background-image: linear-gradient(
+      45deg,
+      transparent 40%,
+      var(--gv-color-surface) 40% 60%,
+      transparent 60%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 50%,
+      var(--gv-color-surface) 50% 70%,
+      transparent 70%
+    );
+}
+.glypher-editor :where(li.glypher-task-item.is-checked) > p {
+  text-decoration: line-through;
+  color: var(--gv-color-text-muted);
+}
+
+/* Blockquote ------------------------------------------------------------ */
+.glypher-editor :where(blockquote) {
+  margin: 0 0 var(--gv-space-3) 0;
+  padding: var(--gv-space-2) var(--gv-space-3);
+  border-left: 3px solid var(--gv-color-accent);
+  background: var(--gv-color-surface-muted);
+  color: var(--gv-color-text-muted);
+  border-radius: 0 var(--gv-radius-sm) var(--gv-radius-sm) 0;
+  display: flow-root;
+}
+/* Paragraph margins inside blockquotes must not push the text below the
+ * visual middle. Keep the first line tight while preserving spacing
+ * between multiple paragraphs in the same quote. */
+.glypher-editor :where(blockquote > p) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.glypher-editor :where(blockquote > p + p) {
+  margin-top: var(--gv-space-2);
+}
+.glypher-editor :where(blockquote) > :first-child {
+  margin-top: 0;
+}
+.glypher-editor :where(blockquote) > :last-child {
+  margin-bottom: 0;
+}
+
+/* Code block ------------------------------------------------------------ */
+.glypher-editor :where(pre) {
+  margin: 0 0 var(--gv-space-3) 0;
+  padding: var(--gv-space-3);
+  background: var(--gv-color-surface-muted);
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-sm);
+  font-family: var(--gv-font-mono);
+  font-size: 0.875em;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+.glypher-editor :where(pre) :where(code) {
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+
+/* Placeholder ----------------------------------------------------------- */
+.glypher-editor :where([data-placeholder])::before {
+  content: attr(data-placeholder);
+  color: var(--gv-color-placeholder);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+/* Track changes (§14) — insertion / deletion marks */
+.glypher-editor :where(ins.glypher-insertion) {
+  text-decoration: none;
+  color: #1a7f37;
+  background: rgba(26, 127, 55, 0.12);
+  border-radius: 2px;
+}
+.glypher-editor :where(del.glypher-deletion) {
+  text-decoration: line-through;
+  color: #b35900;
+  background: rgba(179, 89, 0, 0.1);
+  border-radius: 2px;
+}
+
+/* Track-changes review panel */
+.glypher-track-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--gv-text-sm);
+  color: var(--gv-color-text);
+}
+.glypher-track-panel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+.glypher-track-panel__count {
+  background: var(--gv-color-accent-soft);
+  color: var(--gv-color-accent);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-size: 11px;
+}
+.glypher-track-panel__empty {
+  color: var(--gv-color-text-muted);
+  margin: 0;
+}
+.glypher-track-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.glypher-track-item {
+  border: 1px solid var(--gv-color-border);
+  border-radius: var(--gv-radius-sm);
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.glypher-track-item.is-insertion {
+  border-left: 3px solid #1a7f37;
+}
+.glypher-track-item.is-deletion {
+  border-left: 3px solid #b35900;
+}
+.glypher-track-item__meta {
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--gv-color-text-muted);
+}
+.glypher-track-item__type {
+  font-weight: 600;
+}
+.glypher-track-item__text {
+  font-family: var(--gv-font-mono, monospace);
+  word-break: break-word;
+}
+.glypher-track-item__actions,
+.glypher-track-panel__bulk {
+  display: flex;
+  gap: 6px;
+}
+.glypher-track-item__actions button,
+.glypher-track-panel__bulk button {
+  flex: 1;
+  appearance: none;
+  border: 1px solid var(--gv-color-border);
+  background: var(--gv-color-surface);
+  color: var(--gv-color-text);
+  font: inherit;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: var(--gv-radius-sm);
+  cursor: pointer;
+}
+.glypher-track-item__actions button:hover,
+.glypher-track-panel__bulk button:hover {
+  background: var(--gv-color-accent-soft);
+}
+
+/* Remote collaborator cursors */
+.glypher-remote-cursors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.glypher-remote-cursor {
+  position: absolute;
+  width: 0;
+}
+.glypher-remote-cursor__caret {
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+}
+.glypher-remote-cursor__label {
+  position: absolute;
+  top: -1.2em;
+  left: -1px;
+  font-size: 11px;
+  line-height: 1.2;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px 3px 3px 0;
+  white-space: nowrap;
+  font-family: var(--gv-font-ui, system-ui, sans-serif);
+}
+
+/* Iteration 12: default theme polish ------------------------------------ */
+.glypher,
+.glypher * {
+  box-sizing: border-box;
+}
+
+.glypher:focus-within {
+  border-color: var(--gv-color-focus);
+  box-shadow: var(--gv-focus-ring);
+}
+
+.glypher-button {
+  min-height: var(--gv-control-height);
+}
+
+.glypher-button:disabled:hover,
+.glypher-button[aria-disabled="true"]:hover {
+  background: transparent;
+}
+
+.glypher-button[aria-pressed="true"] {
+  background: var(--gv-color-accent-soft);
+  color: var(--gv-color-accent);
+}
+
+.glypher-dropdown__item:focus-visible,
+.glypher-slash-item:focus-visible,
+.glypher-mention-item:focus-visible,
+.glypher-source-view__actions .glypher-button:focus-visible,
+.glypher-track-item__actions button:focus-visible,
+.glypher-track-panel__bulk button:focus-visible {
+  outline: 2px solid var(--gv-color-focus);
+  outline-offset: 1px;
+}
+
+.glypher-dropdown__menu,
+.glypher-bubble-menu,
+.glypher-slash-menu,
+.glypher-mention-menu,
+.glypher-toolbar--context {
+  box-shadow: var(--gv-shadow-md);
+}
+
+.glypher-dropdown__menu {
+  max-width: min(320px, calc(100vw - 24px));
+  max-height: min(420px, calc(100vh - 24px));
+  overflow: auto;
+}
+
+.glypher-dropdown__item:disabled {
+  color: var(--gv-color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.glypher-dropdown__item:disabled:hover {
+  background: transparent;
+}
+
+.glypher-color-grid__swatch:focus-visible,
+.glypher-table-picker__cell:focus-visible,
+.glypher-image-resizer__handle:focus-visible {
+  outline: 2px solid var(--gv-color-focus);
+  outline-offset: 2px;
+}
+
+.glypher-color-grid__swatch[aria-pressed="true"],
+.glypher-color-grid__swatch.is-active {
+  box-shadow: 0 0 0 2px var(--gv-color-surface),
+    0 0 0 4px var(--gv-color-focus);
+}
+
+.glypher-content,
+.glypher-editor {
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+.glypher-editor:focus-visible {
+  outline: none;
+}
+
+.glypher-editor :where(img.glypher-image):focus-visible {
+  outline: 2px solid var(--gv-color-focus);
+  outline-offset: 2px;
+}
+
+.glypher-editor :where(table.glypher-table) {
+  max-width: 100%;
+}
+
+.glypher-editor :where(table.glypher-table td[data-align="center"]),
+.glypher-editor :where(table.glypher-table th[data-align="center"]) {
+  text-align: center;
+}
+
+.glypher-editor :where(table.glypher-table td[data-align="right"]),
+.glypher-editor :where(table.glypher-table th[data-align="right"]) {
+  text-align: right;
+}
+
+.glypher-editor :where(a):focus-visible {
+  outline: 2px solid var(--gv-color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.glypher-editor :where(pre) {
+  max-width: 100%;
+}
+
+.glypher-remote-cursor__caret {
+  display: inline-block;
+  width: 2px;
+  min-height: 1.2em;
+  background: var(--gv-color-accent);
+}
+
+.glypher-remote-cursor__label {
+  display: inline-block;
+  margin-left: 2px;
+  padding: 1px 5px;
+  border-radius: var(--gv-radius-sm);
+  background: var(--gv-color-accent);
+  color: var(--gv-color-surface);
+  font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .glypher-toolbar {
+    gap: 4px;
+    padding: var(--gv-space-2);
+  }
+
+  .glypher-toolbar__divider {
+    width: 100%;
+    height: 1px;
+    margin: var(--gv-space-1) 0;
+  }
+
+  .glypher-button {
+    min-width: var(--gv-control-height);
+    padding-inline: 7px;
+  }
+
+  .glypher-dropdown__menu.is-right {
+    left: 0;
+    right: auto;
+  }
+
+  .glypher-content,
+  .glypher-editor {
+    padding: var(--gv-space-3);
+  }
+}

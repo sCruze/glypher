@@ -1,0 +1,126 @@
+/* Glypher default theme tokens.
+ *
+ * Two ways to pick a theme:
+ *
+ *   1. Do nothing → the editor follows `prefers-color-scheme`.
+ *   2. Set `data-theme="light"` or `data-theme="dark"` on any element
+ *      that wraps the editor (or on <html>). The explicit attribute
+ *      wins over the media query.
+ *
+ * Why both: developers want auto for new users (matches the rest of
+ * their app), but a theme toggle in product UI needs explicit control
+ * that survives reloads. Supporting both lets either pattern work.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Light theme — the default. Applied to :root, to anything explicitly tagged
+ * light, and inherited by everything not explicitly tagged dark.
+ * ------------------------------------------------------------------------ */
+:root,
+[data-theme="light"] {
+  /* Surface */
+  --gv-color-surface: #ffffff;
+  --gv-color-surface-muted: #f7f7f8;
+  --gv-color-border: #e5e7eb;
+  --gv-color-border-strong: #c7c9d1;
+
+  /* Text */
+  --gv-color-text: #1a1a1f;
+  --gv-color-text-muted: #6b7280;
+  --gv-color-placeholder: #9ca3af;
+
+  /* Accent */
+  --gv-color-accent: #5b21b6;
+  --gv-color-accent-soft: #ede9fe;
+  --gv-color-primary: var(--gv-color-accent);
+  --gv-color-focus: #7c3aed;
+  --gv-color-danger: #b91c1c;
+  --gv-color-danger-soft: #fee2e2;
+
+  /* Elevation */
+  --gv-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --gv-shadow-md: 0 10px 38px -10px rgba(15, 23, 42, 0.16),
+    0 10px 20px -15px rgba(15, 23, 42, 0.12);
+}
+
+/* Common (non-color) tokens — shared by both themes. */
+:root {
+  /* Spacing */
+  --gv-space-1: 4px;
+  --gv-space-2: 8px;
+  --gv-space-3: 12px;
+  --gv-space-4: 16px;
+
+  /* Radius */
+  --gv-radius-sm: 4px;
+  --gv-radius-md: 8px;
+  --gv-radius-lg: 12px;
+
+  /* Type */
+  --gv-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --gv-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --gv-text-base: 16px;
+  --gv-text-sm: 14px;
+  --gv-leading: 1.6;
+
+  /* Controls */
+  --gv-control-height: 32px;
+  --gv-focus-ring: 0 0 0 3px color-mix(
+    in srgb,
+    var(--gv-color-focus) 22%,
+    transparent
+  );
+
+  /* Indent step (block-level indentation) */
+  --gv-indent-step: 24px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Dark theme — applied when explicitly tagged, OR via media query when
+ * no explicit theme is set on the document.
+ * ------------------------------------------------------------------------ */
+[data-theme="dark"] {
+  --gv-color-surface: #0f1115;
+  --gv-color-surface-muted: #1a1d23;
+  --gv-color-border: #2a2d35;
+  --gv-color-border-strong: #3a3f49;
+  --gv-color-text: #e7e9ee;
+  --gv-color-text-muted: #9aa0aa;
+  --gv-color-placeholder: #5c606b;
+  --gv-color-accent: #a78bfa;
+  --gv-color-accent-soft: #2a1d54;
+  --gv-color-primary: var(--gv-color-accent);
+  --gv-color-focus: #c4b5fd;
+  --gv-color-danger: #fca5a5;
+  --gv-color-danger-soft: #451a1a;
+  --gv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --gv-shadow-md: 0 10px 38px -10px rgba(0, 0, 0, 0.5),
+    0 10px 20px -15px rgba(0, 0, 0, 0.45);
+}
+
+/* Auto-dark: only when the document root has no explicit override. The
+ * `:not([data-theme])` guard means a `data-theme="light"` setting on
+ * any ancestor wins, even at night. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --gv-color-surface: #0f1115;
+    --gv-color-surface-muted: #1a1d23;
+    --gv-color-border: #2a2d35;
+    --gv-color-border-strong: #3a3f49;
+    --gv-color-text: #e7e9ee;
+    --gv-color-text-muted: #9aa0aa;
+    --gv-color-placeholder: #5c606b;
+    --gv-color-accent: #a78bfa;
+    --gv-color-accent-soft: #2a1d54;
+    --gv-color-primary: var(--gv-color-accent);
+    --gv-color-focus: #c4b5fd;
+    --gv-color-danger: #fca5a5;
+    --gv-color-danger-soft: #451a1a;
+    --gv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --gv-shadow-md: 0 10px 38px -10px rgba(0, 0, 0, 0.5),
+      0 10px 20px -15px rgba(0, 0, 0, 0.45);
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "@glypher/starter-kit",
+  "version": "0.0.4",
+  "description": "Curated set of base extensions for Glypher — the MVP toolset including paragraph, headings, marks, lists, blockquote, code block, horizontal rule, image, table, alignment, markdown shortcuts, placeholder and history.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@glypher/core": "^0.0.1"
+  },
+  "dependencies": {
+    "@glypher/extension-blockquote": "workspace:*",
+    "@glypher/extension-bold": "workspace:*",
+    "@glypher/extension-bullet-list": "workspace:*",
+    "@glypher/extension-clear-formatting": "workspace:*",
+    "@glypher/extension-code-block": "workspace:*",
+    "@glypher/extension-hard-break": "workspace:*",
+    "@glypher/extension-heading": "workspace:*",
+    "@glypher/extension-history": "workspace:*",
+    "@glypher/extension-horizontal-rule": "workspace:*",
+    "@glypher/extension-image": "workspace:*",
+    "@glypher/extension-italic": "workspace:*",
+    "@glypher/extension-link": "workspace:*",
+    "@glypher/extension-list-item": "workspace:*",
+    "@glypher/extension-markdown": "workspace:*",
+    "@glypher/extension-ordered-list": "workspace:*",
+    "@glypher/extension-paragraph": "workspace:*",
+    "@glypher/extension-placeholder": "workspace:*",
+    "@glypher/extension-strike": "workspace:*",
+    "@glypher/extension-table": "workspace:*",
+    "@glypher/extension-task-item": "workspace:*",
+    "@glypher/extension-task-list": "workspace:*",
+    "@glypher/extension-text-align": "workspace:*",
+    "@glypher/extension-underline": "workspace:*"
+  },
+  "devDependencies": {
+    "@glypher/core": "workspace:*",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}
